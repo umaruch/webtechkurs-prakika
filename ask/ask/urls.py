@@ -1,30 +1,16 @@
-"""ask URL Configuration
+from django.conf.urls import patterns, include, url
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
-from django.urls import path
+admin.autodiscover()
 
-from qa.views import test
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', test),
-    path('login/', test),
-    path('signup', test),
-    path('question/<int:id>/', test),
-    path('ask/', test),
-    path('popular/', test),
-    path('new/', test),
-]
+urlpatterns = patterns('',
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', 'qa.views.test', name='home'),
+    url(r'^login/', 'qa.views.test'),
+    url(r'^signup', 'qa.views.test'),
+    url(r'^question/(?P<id>\d+)', 'qa.views.test', name='question'),
+    url(r'^ask/', 'qa.views.test', name='ask'),
+    url(r'^popular/', 'qa.views.test', name='popular'),
+    url(r'^new', 'qa.views.test'),
+    url(r'^answer/$', 'qa.views.test', name='answer'),
+)
